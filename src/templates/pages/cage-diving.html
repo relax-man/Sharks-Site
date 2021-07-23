@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Cage diving{% endblock title %}
+
+{% block content %}
+
+<h2 class="text-dark mb-3">Изумительные места для кейдж-дайвинга:</h2>
+
+<hr>
+
+<div class="card text-dark">
+    <div class="card-body">
+        <button
+            class="btn btn-white border w-100"
+            type="button"
+            data-toggle="collapse"
+            data-target="#sharksAddForm"
+        >
+            Добавить <i class="fas fa-plus ml-2"></i>
+        </button>
+        <div
+            class="collapse mt-3"
+            id="sharksAddForm"
+        >
+            <form
+                action="/add-cage-diving-place"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+                <div class="form-group">
+                    <label>Название</label>
+                    <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                    />
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea
+                        name="description"
+                        class="form-control"
+                        rows="3"
+                    ></textarea>
+                </div>
+                <div class="form-group">
+                    <label>iFrame src:</label>
+                    <input
+                        type="text"
+                        name="frame_src"
+                        class="form-control"
+                    />
+                    <small class="form-text text-muted">
+                        &lt;iframe
+                        src="<strong>https://www.google.com/maps/embed?pb=!1m14!1...</strong>"
+                        &gt;&lt;/iframe&gt;
+                    </small>
+                </div>
+                <div class="form-group">
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Сохранить
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+{% for cage_diving_place in cage_diving_places %}
+<div class="card text-dark mb-3">
+    <iframe
+        src="{{ cage_diving_place.iframe_src }}"
+        height="350"
+        class="card-img-top border-0"
+    ></iframe>
+    <div class="card-body">
+        <h5 class="card-title">{{ cage_diving_place.name }}</h5>
+        <p>{{ cage_diving_place.description|add_linebreaks|safe }}</p>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}

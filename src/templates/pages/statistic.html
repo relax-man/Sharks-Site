@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Statistic{% endblock title %}
+
+{% block background_image %}
+{{ url_for('static', filename='img/statistic/background.jpg') }}
+{% endblock background_image %}
+
+{% block background_styles %}
+backdrop-filter: blur(3px) brightness(0.5);
+{% endblock background_styles %}
+
+{% block content %}
+
+<div class="card text-dark rounded-lg">
+    <div class="card-header text-center">
+        <h4 class="my-2">Статистика нападений</h4>
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            В подавляющем большинстве
+            случаев агрессивность акул преувеличена. Для человека опасны лишь несколько видов,
+            из
+            которых наиболее известна большая белая акула. Нападения акул на человека тем или
+            иным
+            способом провоцируют сами люди. Нередко туристы сами прикармливают небольших акул в
+            надежде снять редкий кадр с хищницей. Вслед за этими рыбами на легкую добычу
+            приплывают
+            и
+            другие акулы, их инстинкты подкрепляются шумным плеском купающихся, а также запахом
+            пищевых отбросов, которые всегда в той или иной мере присутствуют возле пляжей.
+        </p>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Атака акул на людей в мире</th>
+                <th>Погибшие от атаки акул в мире</th>
+                <th>Год</th>
+            </tr>
+            <tr>
+                <td>79</td>
+                <td>6</td>
+                <td>2010</td>
+            </tr>
+            <tr>
+                <td>75</td>
+                <td>12</td>
+                <td>2011</td>
+            </tr>
+            <tr>
+                <td>80</td>
+                <td>7</td>
+                <td>2012</td>
+            </tr>
+            <tr>
+                <td>72</td>
+                <td>10</td>
+                <td>2013</td>
+            </tr>
+            <tr>
+                <td>73</td>
+                <td>3</td>
+                <td>2014</td>
+            </tr>
+            <tr>
+                <td>98</td>
+                <td>6</td>
+                <td>2015</td>
+            </tr>
+            <tr>
+                <td>81</td>
+                <td>4</td>
+                <td>2016</td>
+            </tr>
+            <tr>
+                <td>88</td>
+                <td>5</td>
+                <td>2017</td>
+            </tr>
+            <tr>
+                <td>66</td>
+                <td>4</td>
+                <td>2018</td>
+            </tr>
+        </table>
+        <hr>
+        <p class="lead">
+            О том, что, когда, почему
+            и зачем нападают акулы вы можете посмотреть в этом познавательном видеоролике:
+        </p>
+        <div class="d-flex justify-content-center border rounded-lg p-2">
+            <iframe
+                src="https://www.youtube.com/embed/cwS0FxDmFWY"
+                width="100%"
+                height="320"
+                frameborder="0"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

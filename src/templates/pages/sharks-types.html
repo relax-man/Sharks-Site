@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}Shark types{% endblock title %}
+
+{% block content %}
+
+<div class="card text-dark mb-3">
+    <div class="card-body">
+        <h3 class="card-title text-center">Виды акул</h3>
+        <hr>
+        <button
+            class="btn btn-dark w-100"
+            type="button"
+            data-toggle="collapse"
+            data-target="#sharkTypesInfo"
+        >
+            Описание <i class="fas fa-info-circle ml-2"></i>
+        </button>
+        <p
+            class="collapse card-text mt-3"
+            id="sharkTypesInfo"
+        >
+            <strong>Акулы</strong> — совершенные машины для убийства.<br>
+            <strong>Акулы</strong> — обширная группа животных, относящаяся к классу Хрящевых
+            рыб.
+            Нельзя точно подсчитать количество видов, ведь иногда находят особей, которых
+            считали давно
+            ушедшими в историю. Можно только догадываться, но большинство учёных сходятся во
+            мнении, что
+            видов акул примерно 450.<br>
+            Облик и образ жизни акул невероятно разнообразны.
+            Размер акул
+            варьируется от 15 см до 15-20 м и относительно мелкие акулы встречаются гораздо
+            чаще.<br>
+            Мускулистое тело акул не имеет костей, их заменяют хрящи. Однако некоторые
+            особи
+            имеют нестандартную внешность.<br>
+            <strong>Акулы</strong> — исключительно зубастые рыбы. Во рту
+            насчитывается
+            несколько сотен зубов, расположенных рядами. Когда наружный ряд изнашивается, зубы
+            внутренних рядов сменяют его.<br>
+            Позади головы у акул расположены 5-7 жаберных
+            щелей. Акулы
+            не могут активно прогонять воду сквозь них, поэтому для дыхания им необходимо
+            постоянно
+            двигаться. Но некоторые виды нашли выход: они залегают на отдых в местах с активным
+            течением
+            воды, которая богата кислородом.<br>
+            Акулы обладают значительным арсеналом средств по
+            обнаружению добычи. Они чувствительны к малейшим колебаниям воды и способны учуять
+            плеск
+            раненной рыбы на больших расстояниях. Акулы обладают исключительным обонянием и
+            могут
+            почувствовать вкус крови, растворённой в воде в миллион раз! Этот нюх безошибочно
+            выводит их
+            на след раненных животных.<br>
+            Наконец, акулы обладают уникальным чувством: они могут
+            чувствовать электромагнитные поля, создаваемые живыми существами. Чтобы улавливать
+            движения
+            дельфина или сердцебиение морского котика им не нужен даже запах, животное будет
+            обнаружено
+            в любом случае, а остальное - вопрос скорости.
+        </p>
+    </div>
+</div>
+
+<div class="card text-dark mb-3">
+    <div class="card-body">
+        <button
+            class="btn btn-white border w-100"
+            type="button"
+            data-toggle="collapse"
+            data-target="#sharksAddForm"
+        >
+            Добавить <i class="fas fa-plus ml-2"></i>
+        </button>
+        <div
+            class="collapse mt-3"
+            id="sharksAddForm"
+        >
+            <form
+                action="/add-shark-type"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+                <div class="form-group">
+                    <label>Название:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                    />
+                </div>
+                <div class="form-group">
+                    <label>Описание:</label>
+                    <textarea
+                        name="description"
+                        class="form-control"
+                        rows="3"
+                    ></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Фото:</label>
+                    <div class="custom-file">
+                        <input
+                            type="file"
+                            name="img"
+                            class="custom-file-input"
+                            id="imgInput"
+                            accept=".jpg,.gif,.png"
+                        >
+                        <label
+                            class="custom-file-label"
+                            for="imgInput"
+                            data-browse="Просмотреть"
+                        >
+                            Выбрать файл...
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>YouTube video id:</label>
+                    <input
+                        type="text"
+                        name="video_id"
+                        class="form-control"
+                    />
+                    <small class="form-text text-muted">
+                        https://www.youtube.com/watch?v=<strong>fMU-vUm6x9Q</strong>
+                    </small>
+                </div>
+                <div class="from-group">
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Сохранить
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% for shark in sharks %}
+<div class="card text-dark mb-3">
+    <div class="row no-gutters">
+        <div
+            class="col-md-6"
+            style="min-height: 350px;"
+        >
+            <div
+                style="
+                    background-image: url({{ url_for('static', filename=shark.img_path) }});
+                    background-position: center;
+                    background-size: cover;
+                "
+                class="w-100 h-100"
+            ></div>
+        </div>
+        <div
+            class="col-md-6"
+            style="min-height: 350px;"
+        >
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ shark.name }}
+                </h5>
+                <p class="card-text text-truncate">
+                    {{ shark.description|add_linebreaks|safe }}
+                </p>
+                <a
+                    href="/sharks-types/{{ shark.pk }}"
+                    role="button"
+                    class="btn btn-primary"
+                >
+                    Подробнее...
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{#
+<iframe
+    src="https://www.youtube.com/embed/f-3qYrkaBpo"
+    width="100%"
+    height="350"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+#}
+
+{% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">$(document).ready(function () { bsCustomFileInput.init(); });</script>
+{% endblock scripts %}

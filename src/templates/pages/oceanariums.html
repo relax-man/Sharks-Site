@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Ocenariums{% endblock title %}
+
+{% block content %}
+
+<h2 class="text-dark mb-3">Самые большие и лучшие океанариумы мира:</h2>
+<hr>
+
+<div class="card text-dark">
+    <div class="card-body">
+        <button
+            class="btn btn-white border w-100"
+            type="button"
+            data-toggle="collapse"
+            data-target="#sharksAddForm"
+        >
+            Добавить <i class="fas fa-plus ml-2"></i>
+        </button>
+        <div
+            class="collapse mt-3"
+            id="sharksAddForm"
+        >
+            <form
+                action="/add-oceanarium"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+                <div class="form-group">
+                    <label>Название</label>
+                    <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                    />
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea
+                        name="description"
+                        class="form-control"
+                        rows="3"
+                    ></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Фото:</label>
+                    <div class="custom-file">
+                        <input
+                            type="file"
+                            name="img"
+                            class="custom-file-input"
+                            id="imgInput"
+                            accept=".jpg,.gif,.png"
+                        >
+                        <label
+                            class="custom-file-label"
+                            for="imgInput"
+                            data-browse="Просмотреть"
+                        >
+                            Выбрать файл...
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>iFrame src:</label>
+                    <input
+                        type="text"
+                        name="frame_src"
+                        class="form-control"
+                    />
+                    <small class="form-text text-muted">
+                        &lt;iframe
+                        src="<strong>https://www.google.com/maps/embed?pb=!1m14!1...</strong>"
+                        &gt;&lt;/iframe&gt;
+                    </small>
+                </div>
+                <div class="from-group">
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Сохранить
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+{% for oceanarium in oceanariums %}
+<div class="card text-dark mb-3">
+    <div class="card-img-top d-flex">
+        <div
+            style="
+                background-image: url({{ url_for('static', filename=oceanarium.img_path) }});
+                background-size: cover;
+                height: 350px;
+            "
+            class="w-50"
+        ></div>
+        <iframe
+            src="{{ oceanarium.iframe_src }}"
+            height="350"
+            class="w-50 border-0"
+        ></iframe>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ oceanarium.name }}</h5>
+        <p>{{ oceanarium.description|add_linebreaks|safe }}</p>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">$(document).ready(function () { bsCustomFileInput.init(); });</script>
+{% endblock scripts %}
